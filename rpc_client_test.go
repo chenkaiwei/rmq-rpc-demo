@@ -25,22 +25,22 @@ func TestFibClient(t *testing.T) {
 	fib.ClientStart(ctx, config.REMOTE_RMQ_ADDRESS)
 	defer fib.ClientStop()
 
-	//掺一个大的 用来测试服务端计算量的负载均衡。服务端要开多个，分配到fib 50的服务，总处理量会显著更少
+	//掺一个大的 用来测试服务端计算量的负载均衡。服务端要开多个，分配到 bignum 的服务，总处理量会显著更少
 	wg.Add(1)
 	go func() {
-		num := 40
+		bignum := 40
 		defer wg.Done()
-		log.Printf(" [x] Requesting fib(%d)", num)
-		res, err := fib.FibonacciRPC(num)
+		log.Printf(" [x] Requesting fib(%d)", bignum)
+		res, err := fib.FibonacciRPC(bignum)
 		if err != nil {
 			return
 		}
-		log.Printf("fib(%d) = %d", num, res)
+		log.Printf("fib(%d) = %d", bignum, res)
 	}()
 	time.Sleep(200 * time.Millisecond)
 
 	//模拟 并发的同步调用
-	for i := 1; i <= 10; i++ {
+	for i := 1; i <= 20; i++ {
 		wg.Add(1) //应当与wait放在同一协程中来保证add先于wait执行
 		go func(i int) {
 			//wg.Add(1) //add和wait不在同一协程中会出现后者先执行的情况，会直接跑完

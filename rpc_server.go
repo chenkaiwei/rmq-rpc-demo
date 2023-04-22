@@ -5,11 +5,10 @@ import (
 	"github.com/pkg/errors"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
+	"rmq-rpc-demo/config"
 	"strconv"
 	"time"
 )
-
-const REMOTE_RMQ_ADDRESS = "amqp://yourpwd:yourusername@yourhost:5672" //改成你自己的服务
 
 func failOnError(err error, msg string) {
 	if err != nil {
@@ -52,7 +51,7 @@ func isQueueExist(conn *amqp.Connection, queueName string) bool {
 func main() {
 	maxWorkerNum := 2
 
-	conn, err := amqp.Dial(REMOTE_RMQ_ADDRESS)
+	conn, err := amqp.Dial(config.REMOTE_RMQ_ADDRESS)
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 

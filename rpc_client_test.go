@@ -3,13 +3,12 @@ package main_test
 import (
 	"context"
 	"log"
+	"rmq-rpc-demo/config"
 	"rmq-rpc-demo/fib"
 	"sync"
 	"testing"
 	"time"
 )
-
-const REMOTE_RMQ_ADDRESS = "amqp://yourpwd:yourusername@yourhost:5672" //改成你自己的服务
 
 func failOnError(err error, msg string) {
 	if err != nil {
@@ -23,7 +22,7 @@ func TestFibClient(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	fib.ClientStart(ctx, REMOTE_RMQ_ADDRESS)
+	fib.ClientStart(ctx, config.REMOTE_RMQ_ADDRESS)
 	defer fib.ClientStop()
 
 	//掺一个大的 用来测试服务端计算量的负载均衡。服务端要开多个，分配到fib 50的服务，总处理量会显著更少

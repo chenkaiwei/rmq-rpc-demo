@@ -2,7 +2,6 @@
 
 #自定义
 /const.go
-const.go
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -101,4 +100,3 @@ gen
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-

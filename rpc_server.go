@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const REMOTE_RMQ_ADDRESS = "amqp://yourpwd:yourusername@yourhost:5672" //改成你自己的服务
+
 func failOnError(err error, msg string) {
 	if err != nil {
 		log.Panicf("%s: %s", msg, err)
